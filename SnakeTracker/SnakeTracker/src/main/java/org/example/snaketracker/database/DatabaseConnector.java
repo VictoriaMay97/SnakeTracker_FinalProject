@@ -4,13 +4,12 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 
 public class DatabaseConnector {
-    public Connection databaseLink;
+    public static Connection databaseLink;
 
     public Connection getConnection(){
-        String databaseName = "snaketracker";
-        String databaseUser = "root";
-        String databasePassword = "Password";
-        String url = "jdbc:mysql://lcoalhost/" + databaseName;
+        final String databaseUser = "root";
+        final String databasePassword = "Password";
+        final String url = "jdbc:mysql://localhost:3306/snaketracker";
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");

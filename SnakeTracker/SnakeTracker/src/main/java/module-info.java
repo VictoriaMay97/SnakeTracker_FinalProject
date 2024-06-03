@@ -11,6 +11,7 @@ module org.example.snaketracker {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires mysql.connector.j;
 
     opens org.example.snaketracker to javafx.fxml;
     exports org.example.snaketracker;

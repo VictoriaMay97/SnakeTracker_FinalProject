@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="791.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.snaketracker.SwitchSceneController">
+<AnchorPane prefHeight="791.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.snaketracker.ManageSnakeController">
     <children>
         <Button layoutX="31.0" layoutY="734.0" mnemonicParsing="false" onAction="#switchToMainMenu" text="Zurück" />
       <Label layoutX="85.0" layoutY="108.0" text="Schlangen verwalten">
