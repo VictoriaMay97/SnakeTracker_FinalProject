@@ -15,12 +15,14 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <ComboBox fx:id="snakeTypeComboBox" layoutX="45.0" layoutY="205.0" onContextMenuRequested="#initialize" prefWidth="150.0" promptText="Schlangenart" />
+      <ComboBox fx:id="snakeTypeComboBox" layoutX="46.0" layoutY="205.0" onContextMenuRequested="#initialize" prefHeight="25.0" prefWidth="149.0" promptText="Schlangenart" />
       <TextField fx:id="snakeName" layoutX="315.0" layoutY="205.0" promptText="Name" />
-      <ComboBox fx:id="chooseSexBox" layoutX="45.0" layoutY="283.0" prefWidth="150.0" promptText="Geschlecht" />
-      <DatePicker fx:id="chooseBirthdateBox" layoutX="290.0" layoutY="283.0" promptText="Geburtsdatum" />
+      <ComboBox fx:id="chooseSexBox" layoutX="46.0" layoutY="283.0" prefHeight="25.0" prefWidth="149.0" promptText="Geschlecht" />
+      <DatePicker fx:id="chooseBirthdateBox" layoutX="315.0" layoutY="283.0" prefHeight="25.0" prefWidth="149.0" promptText="Geburtsdatum" />
       <TextField fx:id="morphBox" layoutX="46.0" layoutY="371.0" promptText="Morphe" />
-      <Button fx:id="BackButtonRegisterSnake" layoutX="31.0" layoutY="734.0" mnemonicParsing="false" onAction="#switchToMainMenu" text="Zurück" />
+      <Button fx:id="uploadPictureButton" layoutX="315.0" layoutY="371.0" mnemonicParsing="false" onAction="#uploadImage" prefHeight="25.0" prefWidth="149.0" text="Bild hochladen" />
+      <Button fx:id="backButtonRegisterSnake" layoutX="31.0" layoutY="734.0" mnemonicParsing="false" onAction="#switchToMainMenu" text="Zurück" />
       <Button fx:id="submitDataButton" layoutX="412.0" layoutY="734.0" mnemonicParsing="false" onAction="#submitData" onContextMenuRequested="#submitData" text="anlegen" />
+      <TextField fx:id="weightBox" layoutX="46.0" layoutY="444.0" promptText="Gewicht in kg" />
    </children>
 </AnchorPane>
