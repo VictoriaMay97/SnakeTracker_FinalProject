@@ -8,7 +8,7 @@
 
 <HBox prefHeight="100.0" prefWidth="312.0" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.snaketracker.SnakeItemController">
     <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="100.0" />
-    <VBox prefHeight="0.0" prefWidth="81.0" spacing="5">
+    <VBox prefHeight="0.0" prefWidth="81.0" spacing="5" translateY="5.5">
         <Label fx:id="nameLabel" text="Name:" />
         <Label fx:id="typeLabel" text="Type:" />
         <Label fx:id="weightLabel" text="Weight:" />
