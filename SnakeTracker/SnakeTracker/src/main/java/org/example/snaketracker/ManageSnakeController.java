@@ -1,15 +1,17 @@
 package org.example.snaketracker;
 
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 import org.example.snaketracker.database.DatabaseConnector;
-import javafx.fxml.FXML;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -19,11 +21,15 @@ import java.util.Objects;
 
 public class ManageSnakeController {
 
+    private static final String CSS_PATH = "styles.css";
     @FXML
     private VBox snakeListVBox;
+    @FXML
+    private ScrollPane scrollPane;
 
     public void initialize() {
         loadSnakes();
+        scrollPane.setFitToWidth(true); // Ensure the ScrollPane fits to width
     }
 
     private void loadSnakes() {
@@ -31,27 +37,28 @@ public class ManageSnakeController {
             DatabaseConnector databaseConnector = new DatabaseConnector();
             Connection connection = databaseConnector.getConnection();
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(
-                    "SELECT s.SnakeID, s.Name, st.Name AS TypeName, we.Weight, s.ImagePath " +
-                            "FROM snake s " +
-                            "JOIN snaketypes st ON s.Type = st.TypeID " +
-                            "JOIN weightentry we ON s.SnakeID = we.SnakeID"
-            );
+            String query = "SELECT s.SnakeID, s.Name, st.Name AS Type, w.Weight, s.ImagePath " +
+                    "FROM snake s " +
+                    "JOIN snaketypes st ON s.Type = st.TypeID " +
+                    "LEFT JOIN weightentry w ON s.SnakeID = w.SnakeID " +
+                    "WHERE w.WeightID = (SELECT MAX(WeightID) FROM weightentry WHERE SnakeID = s.SnakeID)";
+
+            ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
                 int snakeID = resultSet.getInt("SnakeID");
                 String name = resultSet.getString("Name");
-                String type = resultSet.getString("TypeName");
+                String type = resultSet.getString("Type");
                 double weight = resultSet.getDouble("Weight");
                 String imagePath = resultSet.getString("ImagePath");
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("SnakeItem.fxml"));
-                Node snakeItemNode = loader.load();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("items/SnakeItem.fxml"));
+                Parent snakeItem = loader.load();
 
                 SnakeItemController controller = loader.getController();
                 controller.setSnakeData(snakeID, name, type, weight, imagePath);
 
-                snakeListVBox.getChildren().add(snakeItemNode);
+                snakeListVBox.getChildren().add(snakeItem);
             }
 
             resultSet.close();
@@ -62,10 +69,12 @@ public class ManageSnakeController {
         }
     }
 
-    public void switchToMainMenu(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
+    public void switchToMainMenu(javafx.event.ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("scenes/MainMenu.fxml")));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(CSS_PATH);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
+        stage.setScene(scene);
         stage.show();
     }
 }

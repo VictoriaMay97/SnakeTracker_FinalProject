@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `snaketracker` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `snaketracker`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: localhost    Database: snaketracker
@@ -18,12 +16,31 @@ USE `snaketracker`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping events for database 'snaketracker'
+-- Table structure for table `weightentry`
 --
 
+DROP TABLE IF EXISTS `weightentry`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `weightentry` (
+  `WeightID` int NOT NULL AUTO_INCREMENT,
+  `Date` datetime NOT NULL,
+  `SnakeID` int NOT NULL,
+  `Weight` decimal(5,2) NOT NULL,
+  PRIMARY KEY (`WeightID`),
+  UNIQUE KEY `WeightID_UNIQUE` (`WeightID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 --
--- Dumping routines for database 'snaketracker'
+-- Dumping data for table `weightentry`
 --
+
+LOCK TABLES `weightentry` WRITE;
+/*!40000 ALTER TABLE `weightentry` DISABLE KEYS */;
+INSERT INTO `weightentry` VALUES (1,'2024-06-04 15:15:50',15,1.90),(5,'2024-06-07 18:35:08',17,2.40),(6,'2022-11-16 00:00:00',17,0.40),(7,'2023-11-16 00:00:00',17,1.60);
+/*!40000 ALTER TABLE `weightentry` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -34,4 +51,4 @@ USE `snaketracker`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-04 16:40:57
+-- Dump completed on 2024-06-07 22:55:38

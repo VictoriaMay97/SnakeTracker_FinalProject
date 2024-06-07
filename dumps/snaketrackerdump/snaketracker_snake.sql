@@ -42,7 +42,7 @@ CREATE TABLE `snake` (
   CONSTRAINT `PoopID` FOREIGN KEY (`LastPoopID`) REFERENCES `poopentry` (`PoopID`),
   CONSTRAINT `TypeID` FOREIGN KEY (`Type`) REFERENCES `snaketypes` (`TypeID`),
   CONSTRAINT `WeightID` FOREIGN KEY (`LastWeightID`) REFERENCES `weightentry` (`WeightID`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +51,7 @@ CREATE TABLE `snake` (
 
 LOCK TABLES `snake` WRITE;
 /*!40000 ALTER TABLE `snake` DISABLE KEYS */;
-INSERT INTO `snake` VALUES (15,1,'Olaf',1,'2023-12-05 00:00:00',NULL,NULL,NULL,'Mpjave','C:\\Users\\User\\Documents\\GitHub\\SnakeTraker_FinalProject\\SnakeTracker\\savedImages\\emote31.png');
+INSERT INTO `snake` VALUES (15,1,'Olaf',1,'2023-12-05 00:00:00',NULL,NULL,NULL,'Mojave','C:\\Users\\User\\Documents\\GitHub\\SnakeTraker_FinalProject\\SnakeTracker\\savedImages\\snakes\\emote31.png'),(17,1,'Brigitte',0,'2022-11-16 00:00:00',NULL,NULL,NULL,'Phantom','C:\\Users\\User\\Documents\\GitHub\\SnakeTraker_FinalProject\\SnakeTracker\\savedImages\\snakes\\NayuAYAYA.png');
 /*!40000 ALTER TABLE `snake` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -64,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-04 16:41:22
+-- Dump completed on 2024-06-07 22:55:40

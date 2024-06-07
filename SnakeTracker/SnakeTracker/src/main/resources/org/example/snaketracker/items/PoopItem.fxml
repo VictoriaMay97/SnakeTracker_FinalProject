@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="177.0" prefWidth="400.0" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.snaketracker.PoopItemController">
+    <Pane prefHeight="50.0" prefWidth="492.0">
+        <children>
+            <Label layoutX="8.0" layoutY="14.0" text="Letzter Kot:" />
+            <Label fx:id="lastPoopDateLabel" alignment="TOP_LEFT" layoutX="160.0" layoutY="14.0" />
+        </children>
+    </Pane>
+    <Pane layoutY="-5.0" prefHeight="50.0" prefWidth="400.0">
+        <children>
+            <Label layoutX="8.0" text="Kommentar:" />
+            <TextField fx:id="commentField" layoutX="160.0" prefWidth="200.0" />
+        </children>
+    </Pane>
+    <Pane prefHeight="50.0" prefWidth="400.0">
+        <children>
+            <ImageView fx:id="imageView" fitHeight="92.0" fitWidth="200.0" layoutX="6.0" layoutY="-17.0" onMouseClicked="#uploadImage" pickOnBounds="true" preserveRatio="true" />
+        </children>
+    </Pane>
+    <Pane prefHeight="50.0" prefWidth="400.0">
+        <children>
+            <Button layoutX="287.0" layoutY="3.0" onAction="#addPoopEntry" prefHeight="25.0" prefWidth="101.0" text="Kot eintragen" />
+        </children>
+    </Pane>
+</VBox>

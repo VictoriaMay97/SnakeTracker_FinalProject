@@ -1,30 +1,30 @@
 package org.example.snaketracker;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+
+import java.io.IOException;
 
 public class SnakeItemController {
 
     @FXML
     private ImageView imageView;
-
     @FXML
     private Label nameLabel;
-
     @FXML
     private Label typeLabel;
-
     @FXML
     private Label weightLabel;
-
     @FXML
-    private Button editButton;
-
-    @FXML
-    private Button deleteButton;
+    private Button chooseButton;
 
     private int snakeID;
 
@@ -36,17 +36,24 @@ public class SnakeItemController {
         if (imagePath != null && !imagePath.isEmpty()) {
             imageView.setImage(new Image(imagePath));
         }
-        editButton.setOnAction(event -> editSnake());
-        deleteButton.setOnAction(event -> deleteSnake());
+        chooseButton.setOnAction(event -> {
+            try {
+                chooseSnake(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
-    private void editSnake() {
-        // Implement the edit functionality
-        System.out.println("Edit snake with ID: " + snakeID);
-    }
+    private void chooseSnake(javafx.event.ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/EditSnake.fxml"));
+        Parent root = loader.load();
 
-    private void deleteSnake() {
-        // Implement the delete functionality
-        System.out.println("Delete snake with ID: " + snakeID);
+        EditSnakeController controller = loader.getController();
+        controller.loadSnakeData(snakeID);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }

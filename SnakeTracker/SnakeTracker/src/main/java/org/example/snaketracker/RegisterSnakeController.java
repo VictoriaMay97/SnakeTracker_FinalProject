@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -25,6 +26,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class RegisterSnakeController {
+
+    private static final String CSS_PATH = "styles.css";
 
     @FXML
     private ComboBox<String> snakeTypeComboBox;
@@ -80,17 +83,23 @@ public class RegisterSnakeController {
         String snakeSexInput = chooseSexBox.getValue();
         LocalDate snakeBirthdateInput = chooseBirthdateBox.getValue();
         String snakeMorphInput = morphBox.getText();
-        String weightInput = weightBox.getText();
+        String weightInput = weightBox.getText().replace(",", ".");
 
         if (isInputValid(snakeNameInput, snakeTypeInput, snakeSexInput, snakeBirthdateInput, snakeMorphInput, weightInput)) {
             int sex = "männlich".equals(snakeSexInput) ? 1 : 0;
             double weight = Double.parseDouble(weightInput);
             insertDataIntoDatabase(snakeNameInput, snakeTypeInput, sex, snakeBirthdateInput, snakeMorphInput, imagePath, weight);
         } else {
-            // still needs Error Message
+            showAlert("Eingabefehler", "Bitte alle Felder korrekt ausfüllen.");
         }
     }
-
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     private boolean isInputValid(String name, String type, String sex, LocalDate birthdate, String morph, String weight) {
         return name != null && !name.isEmpty() &&
                 type != null && !type.isEmpty() &&
@@ -151,7 +160,7 @@ public class RegisterSnakeController {
 
         if (file != null) {
             try {
-                File savedImagesDirectory = new File("savedImages");
+                File savedImagesDirectory = new File("savedImages/snakes");
                 if (!savedImagesDirectory.exists()) {
                     savedImagesDirectory.mkdirs();
                 }
@@ -165,9 +174,11 @@ public class RegisterSnakeController {
     }
 
     public void switchToMainMenu(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("scenes/MainMenu.fxml")));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(CSS_PATH);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
+        stage.setScene(scene);
         stage.show();
     }
 }

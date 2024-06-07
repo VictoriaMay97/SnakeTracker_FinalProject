@@ -16,12 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping events for database 'snaketracker'
+-- Table structure for table `poopentry`
 --
 
+DROP TABLE IF EXISTS `poopentry`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `poopentry` (
+  `PoopID` int NOT NULL AUTO_INCREMENT,
+  `Date` datetime NOT NULL,
+  `SnakeID` int NOT NULL,
+  `ImagePath` varchar(200) DEFAULT NULL,
+  `Comment` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`PoopID`),
+  UNIQUE KEY `PoopID_UNIQUE` (`PoopID`),
+  KEY `SnakeID_idx` (`SnakeID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 --
--- Dumping routines for database 'snaketracker'
+-- Dumping data for table `poopentry`
 --
+
+LOCK TABLES `poopentry` WRITE;
+/*!40000 ALTER TABLE `poopentry` DISABLE KEYS */;
+/*!40000 ALTER TABLE `poopentry` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -32,4 +52,4 @@
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-04 16:41:33
+-- Dump completed on 2024-06-07 22:55:45

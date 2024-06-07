@@ -1,0 +1,5 @@
+.anchor-pane {
+    -fx-background-image: url("file:///C:/Users/User/Documents/GitHub/SnakeTraker_FinalProject/SnakeTracker/savedImages/design/background.png");
+     -fx-background-size: cover;
+        -fx-background-position: center center;
+    }

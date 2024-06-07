@@ -12,6 +12,11 @@ module org.example.snaketracker {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires mysql.connector.j;
+    requires layout;
+    requires kernel;
+    requires io;
+    requires java.desktop;
+    requires org.jfree.jfreechart;
 
     opens org.example.snaketracker to javafx.fxml;
     exports org.example.snaketracker;
