@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 
+import java.io.File;
 import java.io.IOException;
 
 public class SnakeItemController {
@@ -34,7 +35,7 @@ public class SnakeItemController {
         typeLabel.setText("Type: " + type);
         weightLabel.setText("Weight: " + weight + " kg");
         if (imagePath != null && !imagePath.isEmpty()) {
-            imageView.setImage(new Image(imagePath));
+            imageView.setImage(new Image(getImagePath(imagePath)));
         }
         chooseButton.setOnAction(event -> {
             try {
@@ -56,4 +57,12 @@ public class SnakeItemController {
         stage.setScene(new Scene(root));
         stage.show();
     }
+    private String getImagePath(String imagePath){
+        String filePath = new File("").getAbsolutePath();
+        return filePath.concat(imagePath);
+
+    }
+
 }
+
+

@@ -34,8 +34,6 @@ public class EditSnakeController {
     @FXML
     private DatePicker birthdatePicker;
     @FXML
-    private Label ageLabel;
-    @FXML
     private TextField morphField;
     @FXML
     private VBox weightVBox;
@@ -45,8 +43,6 @@ public class EditSnakeController {
     private VBox mealVBox;
     @FXML
     private Button backButton;
-    @FXML
-    private Button submitButton;
     @FXML
     private Button createPDFButton;
 
@@ -75,7 +71,8 @@ public class EditSnakeController {
                 imagePath = resultSet.getString("ImagePath");
 
                 if (imagePath != null && !imagePath.isEmpty()) {
-                    imageView.setImage(new Image(new FileInputStream(imagePath)));
+                   String fullImagePath = getImagePath(imagePath);
+                    imageView.setImage(new Image(new FileInputStream(fullImagePath)));
                 }
 
 
@@ -217,5 +214,9 @@ public class EditSnakeController {
     @FXML
     private void createPDF() {
         PDFReportGenerator.generatePdfReport((Stage) createPDFButton.getScene().getWindow(), snakeID);
+    }
+    private String getImagePath(String imagePath){
+        String filePath = new File("").getAbsolutePath();
+        return filePath.concat(imagePath);
     }
 }

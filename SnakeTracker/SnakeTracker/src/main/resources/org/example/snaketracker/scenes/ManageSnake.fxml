@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="791.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.snaketracker.ManageSnakeController" styleClass="anchor-pane">
+<AnchorPane fx:id="manageSnakePane" prefHeight="791.0" prefWidth="496.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.snaketracker.ManageSnakeController">
     <children>
         <Button layoutX="31.0" layoutY="734.0" mnemonicParsing="false" onAction="#switchToMainMenu" text="Zurück" />
-        <Label layoutX="85.0" layoutY="108.0" text="Schlangen verwalten">
-            <font>
-                <Font size="36.0" />
-            </font>
-        </Label>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="31.0" layoutY="160.0" prefHeight="550.0" prefWidth="434.0">
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="31.0" layoutY="242.0" prefHeight="481.0" prefWidth="434.0">
             <content>
-                <VBox fx:id="snakeListVBox" fillWidth="true" prefHeight="128.0" prefWidth="432.0" spacing="10.0" />
+                <VBox fx:id="snakeListVBox" prefHeight="128.0" prefWidth="432.0" spacing="10.0" />
             </content>
         </ScrollPane>
     </children>

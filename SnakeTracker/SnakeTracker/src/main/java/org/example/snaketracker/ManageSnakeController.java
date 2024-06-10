@@ -29,7 +29,7 @@ public class ManageSnakeController {
 
     public void initialize() {
         loadSnakes();
-        scrollPane.setFitToWidth(true); // Ensure the ScrollPane fits to width
+        scrollPane.setFitToWidth(true);
     }
 
     private void loadSnakes() {

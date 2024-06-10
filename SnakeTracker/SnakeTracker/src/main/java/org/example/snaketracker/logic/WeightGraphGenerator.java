@@ -53,7 +53,7 @@ public class WeightGraphGenerator {
                 false
         );
 
-        // Format the date axis to show only the date
+
         DateAxis axis = (DateAxis) chart.getXYPlot().getDomainAxis();
         axis.setDateFormatOverride(new SimpleDateFormat("dd-MM-yyyy"));
 

@@ -1,5 +1,17 @@
-.anchor-pane {
-    -fx-background-image: url("file:///C:/Users/User/Documents/GitHub/SnakeTraker_FinalProject/SnakeTracker/savedImages/design/background.png");
+#mainMenuPane {
+    -fx-background-image: url("../../../savedImages/design/hauptmenue.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+#registerSnakePane {
+     -fx-background-image: url("../../../savedImages/design/schlange_anlegen.png");
      -fx-background-size: cover;
-        -fx-background-position: center center;
-    }
+     -fx-background-position: center center;
+}
+
+#manageSnakePane {
+                     -fx-background-image: url("../../../savedImages/design/schlange_verwalten.png");
+                     -fx-background-size: cover;
+                     -fx-background-position: center center;
+}

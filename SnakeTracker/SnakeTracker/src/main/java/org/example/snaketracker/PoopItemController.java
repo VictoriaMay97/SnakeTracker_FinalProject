@@ -73,13 +73,13 @@ public class PoopItemController {
 
         if (file != null) {
             try {
-                File savedImagesDirectory = new File("savedImages/poop");
+                File savedImagesDirectory = new File("/savedImages/poop");
                 if (!savedImagesDirectory.exists()) {
                     savedImagesDirectory.mkdirs();
                 }
                 File destFile = new File(savedImagesDirectory, file.getName());
                 Files.copy(file.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                imagePath = destFile.getAbsolutePath();
+                imagePath = destFile.toString();
                 imageView.setImage(new Image(new FileInputStream(imagePath)));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -121,4 +121,10 @@ public class PoopItemController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+  /*  private String getImagePath(String imagePath){
+        String filePath = new File("").getAbsolutePath();
+        System.out.println(filePath.concat(imagePath));
+        return filePath.concat(imagePath);
+
+    }*/
 }

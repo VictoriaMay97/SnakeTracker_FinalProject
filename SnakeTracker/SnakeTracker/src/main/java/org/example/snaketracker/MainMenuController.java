@@ -17,16 +17,6 @@ public class MainMenuController {
 
     private static final String CSS_PATH = "styles.css";
     @FXML
-    private ImageView mainMenuFont;
-
-    public void initialize() {
-        try {
-            Image image = new Image("file:///C:/Users/User/Documents/GitHub/SnakeTraker_FinalProject/SnakeTracker/savedImages/design/MainMenuFont.png");
-            mainMenuFont.setImage(image);
-        } catch (Exception e) {
-            System.out.print("Error loading image.");
-        }
-    }
 
     public void switchToRegisterSnake(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("scenes/RegisterSnake.fxml")));

@@ -9,14 +9,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.snaketracker.database.DatabaseConnector;
 import javafx.fxml.FXML;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.time.LocalDate;
@@ -41,6 +46,8 @@ public class RegisterSnakeController {
     private TextField morphBox;
     @FXML
     private TextField weightBox;
+    @FXML
+    private ImageView snakeImage;
 
     private final Map<String, Integer> snakeTypeMap = new HashMap<>();
     private String imagePath;
@@ -89,12 +96,14 @@ public class RegisterSnakeController {
             int sex = "männlich".equals(snakeSexInput) ? 1 : 0;
             double weight = Double.parseDouble(weightInput);
             insertDataIntoDatabase(snakeNameInput, snakeTypeInput, sex, snakeBirthdateInput, snakeMorphInput, imagePath, weight);
+            showAlert("Erfolg!","Schlange angelegt.", Alert.AlertType.INFORMATION);
+
         } else {
-            showAlert("Eingabefehler", "Bitte alle Felder korrekt ausfüllen.");
+            showAlert("Eingabefehler", "Bitte alle Felder korrekt ausfüllen.", Alert.AlertType.ERROR);
         }
     }
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+    private void showAlert(String title, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
@@ -160,17 +169,27 @@ public class RegisterSnakeController {
 
         if (file != null) {
             try {
-                File savedImagesDirectory = new File("savedImages/snakes");
+                String savedImagesPath = "/savedImages/snakes";
+                imagePath = savedImagesPath.concat("/").concat(file.getName());
+                String absolutePath = (new File("").getAbsolutePath());
+                savedImagesPath = absolutePath.concat(savedImagesPath);
+                File savedImagesDirectory = new File(savedImagesPath);
+                System.out.println(savedImagesDirectory);
                 if (!savedImagesDirectory.exists()) {
                     savedImagesDirectory.mkdirs();
                 }
                 File destFile = new File(savedImagesDirectory, file.getName());
+                System.out.println(destFile);
                 Files.copy(file.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                imagePath = destFile.getAbsolutePath();
+
+                Image image = new Image(destFile.toURI().toString());
+                snakeImage.setImage(image);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
     }
 
     public void switchToMainMenu(ActionEvent event) throws IOException {
@@ -181,4 +200,11 @@ public class RegisterSnakeController {
         stage.setScene(scene);
         stage.show();
     }
+
+    private String getImagePath(String imagePath){
+        String filePath = new File("").getAbsolutePath();
+        return filePath.concat(imagePath);
+
+    }
+
 }

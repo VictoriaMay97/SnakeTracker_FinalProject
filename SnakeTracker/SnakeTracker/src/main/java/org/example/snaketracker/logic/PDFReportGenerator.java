@@ -63,6 +63,8 @@ public class PDFReportGenerator {
                         birthdate = snakeResultSet.getDate("Birthdate").toLocalDate();
                         morph = snakeResultSet.getString("Morph");
                         imagePath = snakeResultSet.getString("ImagePath");
+                        String filePath = new File("").getAbsolutePath();
+                        imagePath = filePath.concat(imagePath);
                         sex = snakeResultSet.getInt("Sex") == 1 ? "männlich" : "weiblich";
                     }
                 }
@@ -113,19 +115,12 @@ public class PDFReportGenerator {
 
                 connection.close();
 
-                if (Desktop.isDesktopSupported()) {
-                    try {
-                        Desktop.getDesktop().open(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
             } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }
         }
     }
+
 
     private static String getTypeNameById(Connection connection, int typeId) throws SQLException {
         String sql = "SELECT Name FROM snaketypes WHERE TypeID = ?";
@@ -180,4 +175,5 @@ public class PDFReportGenerator {
             }
         }
     }
+
 }
