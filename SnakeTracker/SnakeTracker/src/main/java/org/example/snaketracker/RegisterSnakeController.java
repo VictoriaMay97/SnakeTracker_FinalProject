@@ -120,7 +120,7 @@ public class RegisterSnakeController {
     }
 
     private void insertDataIntoDatabase(String name, String typeName, Integer sex, LocalDate birthdate, String morph, String imagePath, double weight) {
-        String snakeSql = "INSERT INTO snake (Name, Type, Sex, Birthdate, Morph, ImagePath) VALUES (?, ?, ?, ?, ?, ?)";
+        String snakeSql = "INSERT INTO snake (Name, Type, Sex, Birthdate, Morph, ImagePath, LastWeightID) VALUES (?, ?, ?, ?, ?, ?)";
         String weightSql = "INSERT INTO weightentry (Date, SnakeID, Weight) VALUES (?, ?, ?)";
 
         try {
@@ -174,7 +174,7 @@ public class RegisterSnakeController {
                 String absolutePath = (new File("").getAbsolutePath());
                 savedImagesPath = absolutePath.concat(savedImagesPath);
                 File savedImagesDirectory = new File(savedImagesPath);
-                System.out.println(savedImagesDirectory);
+
                 if (!savedImagesDirectory.exists()) {
                     savedImagesDirectory.mkdirs();
                 }

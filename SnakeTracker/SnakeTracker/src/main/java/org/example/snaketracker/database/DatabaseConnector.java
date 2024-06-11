@@ -10,7 +10,6 @@ public class DatabaseConnector {
         final String databaseUser = "root";
         final String databasePassword = "Password";
         final String url = "jdbc:mysql://localhost:3306/snaketracker";
-
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             databaseLink = DriverManager.getConnection(url, databaseUser,databasePassword);

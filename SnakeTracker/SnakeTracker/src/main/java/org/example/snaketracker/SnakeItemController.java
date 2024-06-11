@@ -10,9 +10,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.Node;
+import org.example.snaketracker.database.DatabaseConnector;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class SnakeItemController {
 
@@ -32,8 +36,8 @@ public class SnakeItemController {
     public void setSnakeData(int snakeID, String name, String type, double weight, String imagePath) {
         this.snakeID = snakeID;
         nameLabel.setText("Name: " + name);
-        typeLabel.setText("Type: " + type);
-        weightLabel.setText("Weight: " + weight + " kg");
+        typeLabel.setText("Art: " + type);
+        weightLabel.setText("Gewicht: " + weight + " kg");
         if (imagePath != null && !imagePath.isEmpty()) {
             imageView.setImage(new Image(getImagePath(imagePath)));
         }
@@ -57,6 +61,24 @@ public class SnakeItemController {
         stage.setScene(new Scene(root));
         stage.show();
     }
+    @FXML
+    private void deleteSnake(javafx.event.ActionEvent event) {
+        deleteSnakeFromDatabase(snakeID);
+        Node source = (Node) event.getSource();
+        source.getParent().getParent().setVisible(false);
+    }
+
+    private void deleteSnakeFromDatabase(int snakeID) {
+        String sql = "DELETE FROM snake WHERE SnakeID = ?";
+        try (Connection conn = new DatabaseConnector().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, snakeID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private String getImagePath(String imagePath){
         String filePath = new File("").getAbsolutePath();
         return filePath.concat(imagePath);

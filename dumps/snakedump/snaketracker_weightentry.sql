@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: snaketracker
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	8.0.36
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,7 +29,7 @@ CREATE TABLE `weightentry` (
   `Weight` decimal(5,2) NOT NULL,
   PRIMARY KEY (`WeightID`),
   UNIQUE KEY `WeightID_UNIQUE` (`WeightID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `weightentry` (
 
 LOCK TABLES `weightentry` WRITE;
 /*!40000 ALTER TABLE `weightentry` DISABLE KEYS */;
-INSERT INTO `weightentry` VALUES (1,'2024-06-04 15:15:50',15,1.90),(5,'2024-06-07 18:35:08',17,2.40),(6,'2022-11-16 00:00:00',17,0.40),(7,'2023-11-16 00:00:00',17,1.60);
+INSERT INTO `weightentry` VALUES (20,'2024-06-11 20:37:55',30,2.40),(22,'2024-06-11 20:39:55',32,0.60),(24,'2024-06-11 20:46:27',34,0.90),(25,'2024-06-11 20:47:23',35,6.80),(26,'2024-06-11 20:51:24',36,0.34),(27,'2024-03-15 00:00:00',32,0.12),(28,'2024-03-24 00:00:00',32,0.20),(29,'2024-04-02 00:00:00',32,0.24),(30,'2024-04-18 00:00:00',32,0.31),(31,'2024-05-04 00:00:00',32,0.43),(32,'2024-05-19 00:00:00',32,0.49);
 /*!40000 ALTER TABLE `weightentry` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-07 22:55:38
+-- Dump completed on 2024-06-11 21:45:45

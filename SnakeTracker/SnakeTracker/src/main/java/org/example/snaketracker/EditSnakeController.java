@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EditSnakeController {
-
+    private static final String CSS_PATH = "styles.css";
     @FXML
     private ImageView imageView;
     @FXML
@@ -181,6 +181,7 @@ public class EditSnakeController {
             Parent root = FXMLLoader.load(getClass().getResource("scenes/ManageSnake.fxml"));
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.setScene(new Scene(root));
+            root.getStylesheets().add(CSS_PATH);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

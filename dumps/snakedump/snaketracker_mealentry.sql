@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: snaketracker
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	8.0.36
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,28 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `snaketypes`
+-- Table structure for table `mealentry`
 --
 
-DROP TABLE IF EXISTS `snaketypes`;
+DROP TABLE IF EXISTS `mealentry`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `snaketypes` (
-  `TypeID` int NOT NULL,
-  `Name` varchar(45) NOT NULL,
-  PRIMARY KEY (`TypeID`),
-  UNIQUE KEY `TypeID_UNIQUE` (`TypeID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `mealentry` (
+  `MealID` int NOT NULL AUTO_INCREMENT,
+  `Date` datetime NOT NULL,
+  `SnakeID` int NOT NULL,
+  `TookFood` tinyint NOT NULL,
+  `FoodType` varchar(45) DEFAULT NULL,
+  `Weight` int DEFAULT NULL,
+  PRIMARY KEY (`MealID`),
+  UNIQUE KEY `MealID_UNIQUE` (`MealID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `snaketypes`
+-- Dumping data for table `mealentry`
 --
 
-LOCK TABLES `snaketypes` WRITE;
-/*!40000 ALTER TABLE `snaketypes` DISABLE KEYS */;
-INSERT INTO `snaketypes` VALUES (1,'Königspython'),(2,'Kornnatter'),(3,'Boa Constrictor'),(4,'Schönnatter'),(5,'Tigerpython');
-/*!40000 ALTER TABLE `snaketypes` ENABLE KEYS */;
+LOCK TABLES `mealentry` WRITE;
+/*!40000 ALTER TABLE `mealentry` DISABLE KEYS */;
+INSERT INTO `mealentry` VALUES (2,'2024-06-11 00:00:00',34,1,'Maus',60),(3,'2024-06-11 00:00:00',30,1,'Ratte',110),(4,'2024-06-11 00:00:00',32,1,'Maus',40),(5,'2024-06-11 00:00:00',35,1,'Hase',1000),(6,'2024-06-11 00:00:00',36,1,'Maus',10);
+/*!40000 ALTER TABLE `mealentry` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-07 22:55:47
+-- Dump completed on 2024-06-11 21:45:45

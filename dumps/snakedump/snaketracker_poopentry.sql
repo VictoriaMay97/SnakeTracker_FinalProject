@@ -16,30 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `weightentry`
+-- Table structure for table `poopentry`
 --
 
-DROP TABLE IF EXISTS `weightentry`;
+DROP TABLE IF EXISTS `poopentry`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `weightentry` (
-  `WeightID` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `poopentry` (
+  `PoopID` int NOT NULL AUTO_INCREMENT,
   `Date` datetime NOT NULL,
   `SnakeID` int NOT NULL,
-  `Weight` decimal(5,2) NOT NULL,
-  PRIMARY KEY (`WeightID`),
-  UNIQUE KEY `WeightID_UNIQUE` (`WeightID`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `ImagePath` varchar(200) DEFAULT NULL,
+  `Comment` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`PoopID`),
+  UNIQUE KEY `PoopID_UNIQUE` (`PoopID`),
+  KEY `SnakeID_idx` (`SnakeID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `weightentry`
+-- Dumping data for table `poopentry`
 --
 
-LOCK TABLES `weightentry` WRITE;
-/*!40000 ALTER TABLE `weightentry` DISABLE KEYS */;
-INSERT INTO `weightentry` VALUES (1,'2024-06-04 15:15:50',15,1.90),(5,'2024-06-07 18:35:08',17,2.40),(6,'2022-11-16 00:00:00',17,0.40),(7,'2023-11-16 00:00:00',17,1.60),(8,'2024-06-10 17:11:16',18,3.60),(9,'2024-06-10 18:59:41',19,3.50),(10,'2024-06-10 22:06:36',20,3.30),(11,'2024-06-10 22:12:23',21,2.60),(12,'2024-06-10 22:18:45',22,1.70),(13,'2024-06-10 22:20:37',23,3.00),(14,'2024-06-10 22:22:44',24,2.30),(15,'2024-06-10 22:27:56',25,3.60),(16,'2024-06-10 22:29:06',26,3.60),(17,'2024-06-10 22:41:01',27,3.50),(18,'2024-06-10 22:46:15',28,4.00),(19,'2024-06-10 22:48:16',29,2.40);
-/*!40000 ALTER TABLE `weightentry` ENABLE KEYS */;
+LOCK TABLES `poopentry` WRITE;
+/*!40000 ALTER TABLE `poopentry` DISABLE KEYS */;
+INSERT INTO `poopentry` VALUES (2,'2024-06-11 00:00:00',32,'\\savedImages\\poop\\poop.png','sieht gut aus');
+/*!40000 ALTER TABLE `poopentry` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-10 23:11:15
+-- Dump completed on 2024-06-11 21:45:45
