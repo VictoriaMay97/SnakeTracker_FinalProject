@@ -18,23 +18,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.LinkedList;
 
 public class WeightGraphGenerator {
 
     public static String generateWeightGraph(int snakeID) {
-        String graphPath = "weight_graph.png";
+        String weightGraphPath = "weight_graph.png";
         TimeSeries series = new TimeSeries("Gewicht");
 
-        try (Connection connection = new DatabaseConnector().getConnection()) {
-            String sql = "SELECT Date, Weight FROM weightentry WHERE SnakeID = ? ORDER BY Date";
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            String sql = "SELECT Date, Weight FROM weightentry WHERE SnakeID = ? ORDER BY Date DESC LIMIT 5";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, snakeID);
                 ResultSet resultSet = statement.executeQuery();
 
+                LinkedList<LocalDate> dates = new LinkedList<>();
+                LinkedList<Double> weights = new LinkedList<>();
+
                 while (resultSet.next()) {
-                    LocalDate date = resultSet.getDate("Date").toLocalDate();
-                    double weight = resultSet.getDouble("Weight");
-                    series.add(new Day(date.getDayOfMonth(), date.getMonthValue(), date.getYear()), weight);
+                    dates.addFirst(resultSet.getDate("Date").toLocalDate());
+                    weights.addFirst(resultSet.getDouble("Weight"));
+                }
+
+                for (int i = 0; i < dates.size(); i++) {
+                    series.add(new Day(dates.get(i).getDayOfMonth(), dates.get(i).getMonthValue(), dates.get(i).getYear()), weights.get(i));
                 }
             }
         } catch (SQLException e) {
@@ -53,19 +60,18 @@ public class WeightGraphGenerator {
                 false
         );
 
-
         DateAxis axis = (DateAxis) chart.getXYPlot().getDomainAxis();
         axis.setDateFormatOverride(new SimpleDateFormat("dd-MM-yyyy"));
 
         try {
             BufferedImage chartImage = chart.createBufferedImage(600, 400);
-            File file = new File(graphPath);
+            File file = new File(weightGraphPath);
             ChartUtils.saveChartAsPNG(file, chart, 500, 350);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
 
-        return graphPath;
+        return weightGraphPath;
     }
 }

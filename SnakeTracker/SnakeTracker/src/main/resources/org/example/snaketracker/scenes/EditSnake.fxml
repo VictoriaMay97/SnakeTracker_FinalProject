@@ -8,17 +8,38 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="791.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.snaketracker.EditSnakeController" styleClass="anchor-pane">
+<AnchorPane fx:id="editSnakePane" prefHeight="791.0" prefWidth="496.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.snaketracker.EditSnakeController">
     <ImageView fx:id="imageView" fitHeight="212.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" />
-    <Button fx:id="replaceImageButton" layoutX="114.0" layoutY="232.0" mnemonicParsing="false" onAction="#replaceImage" prefHeight="20.0" prefWidth="101.0" text="Bild hochladen" />
-    <Label layoutX="260.0" layoutY="15.0" text="Name:" />
+    <Button fx:id="replaceImageButton" layoutX="108.0" layoutY="232.0" mnemonicParsing="false" onAction="#replaceImage" prefHeight="23.0" prefWidth="107.0" text="Bild hochladen">
+        <font>
+            <Font name="Arial Bold" size="12.0" />
+        </font>
+    </Button>
+    <Label layoutX="260.0" layoutY="15.0" text="Name:">
+        <font>
+            <Font name="Arial Bold" size="12.0" />
+        </font>
+    </Label>
     <TextField fx:id="nameField" layoutX="260.0" layoutY="35.0" prefWidth="200.0" />
-    <Label layoutX="260.0" layoutY="70.0" text="Art:" />
+    <Label layoutX="260.0" layoutY="70.0" text="Art:">
+        <font>
+            <Font name="Arial Bold" size="12.0" />
+        </font>
+    </Label>
     <ComboBox fx:id="snakeTypeComboBox" layoutX="260.0" layoutY="90.0" prefWidth="200.0" />
-    <Label layoutX="260.0" layoutY="125.0" text="Geburtsdatum:" />
-    <DatePicker fx:id="birthdatePicker" layoutX="260.0" layoutY="145.0" />
-    <Label layoutX="260.0" layoutY="180.0" text="Morphe:" />
+    <Label layoutX="260.0" layoutY="125.0" text="Geburtsdatum:">
+        <font>
+            <Font name="Arial Bold" size="12.0" />
+        </font>
+    </Label>
+    <DatePicker fx:id="birthdatePicker" layoutX="260.0" layoutY="145.0" prefHeight="25.0" prefWidth="200.0" />
+    <Label layoutX="260.0" layoutY="180.0" text="Morphe:">
+        <font>
+            <Font name="Arial Bold" size="12.0" />
+        </font>
+    </Label>
     <TextField fx:id="morphField" layoutX="260.0" layoutY="200.0" prefWidth="200.0" />
     <VBox layoutX="18.0" layoutY="294.0" prefHeight="450.0" prefWidth="450.0">
         <children>
@@ -27,7 +48,24 @@
             <VBox fx:id="mealVBox" prefWidth="460.0" />
         </children>
     </VBox>
-    <Button fx:id="backButton" layoutX="26.0" layoutY="752.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="94.0" text="Zurück" />
-    <Button fx:id="submitButton" layoutX="374.0" layoutY="752.0" mnemonicParsing="false" onAction="#submit" prefHeight="25.0" prefWidth="94.0" text="Bestätigen" />
-    <Button fx:id="createPDFButton" layoutX="258.0" layoutY="752.0" mnemonicParsing="false" onAction="#createPDF" prefHeight="25.0" prefWidth="94.0" text="PDF erstellen" />
+    <Button fx:id="backButton" layoutX="26.0" layoutY="752.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="94.0" text="Zurück">
+        <font>
+            <Font name="Arial Bold" size="12.0" />
+        </font>
+    </Button>
+    <Button fx:id="submitButton" layoutX="374.0" layoutY="752.0" mnemonicParsing="false" onAction="#submit" prefHeight="25.0" prefWidth="94.0" text="Bestätigen">
+        <font>
+            <Font name="Arial Bold" size="12.0" />
+        </font>
+    </Button>
+    <Button fx:id="createPDFButton" layoutX="270.0" layoutY="752.0" mnemonicParsing="false" onAction="#createPDF" prefHeight="25.0" prefWidth="94.0" text="PDF erstellen">
+        <font>
+            <Font name="Arial Bold" size="12.0" />
+        </font>
+    </Button>
+    <Button fx:id="openMailButton" layoutX="229.0" layoutY="752.0" mnemonicParsing="false" onAction="#openDefaultMailApp" text="✉" textAlignment="CENTER">
+        <font>
+            <Font name="Arial Bold" size="12.0" />
+        </font>
+    </Button>
 </AnchorPane>

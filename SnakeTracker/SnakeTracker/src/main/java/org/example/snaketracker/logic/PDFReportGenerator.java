@@ -4,10 +4,7 @@ import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import javafx.stage.FileChooser;
@@ -28,7 +25,10 @@ public class PDFReportGenerator {
 
     public static void generatePdfReport(Stage stage, int snakeID) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialFileName("Snake_Report_" + snakeID + ".pdf");
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy");
+        String formattedDate = currentDate.format(formatter);
+        fileChooser.setInitialFileName("Schlangenbericht_" + formattedDate + ".pdf");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
         File file = fileChooser.showSaveDialog(stage);
 
@@ -37,12 +37,7 @@ public class PDFReportGenerator {
                  PdfDocument pdf = new PdfDocument(writer);
                  Document document = new Document(pdf)) {
 
-                LocalDate currentDate = LocalDate.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-                String formattedDate = currentDate.format(formatter);
-
-                DatabaseConnector databaseConnector = new DatabaseConnector();
-                Connection connection = databaseConnector.getConnection();
+                Connection connection = DatabaseConnector.getConnection();
 
                 Text title = new Text("Schlangenbericht - " + formattedDate).setBold().setFontSize(18);
                 Paragraph titleParagraph = new Paragraph(title).setMarginBottom(40);
@@ -71,12 +66,12 @@ public class PDFReportGenerator {
 
                 Table mainTable = new Table(new float[]{1, 2});
                 mainTable.setWidth(UnitValue.createPercentValue(100));
-                mainTable.setMarginBottom(30);
+                mainTable.setMarginBottom(20);
 
-                if (imagePath != null && !imagePath.isEmpty()) {
+                if (!imagePath.isEmpty()) {
                     Image image = new Image(ImageDataFactory.create(imagePath));
-                    image.setHeight(180);
-                    image.setWidth(180);
+                    image.setHeight(140);
+                    image.setWidth(140);
                     Paragraph imageParagraph = new Paragraph().add(image).setTextAlignment(TextAlignment.CENTER);
                     mainTable.addCell(imageParagraph);
                 } else {
@@ -98,19 +93,22 @@ public class PDFReportGenerator {
                 infoTable.addCell(new Paragraph(getLastWeight(connection, snakeID)));
                 infoTable.addCell(new Paragraph("Morphe:"));
                 infoTable.addCell(new Paragraph(morph));
-                infoTable.addCell(new Paragraph("Letzter Kot:"));
-                infoTable.addCell(new Paragraph(getLastPoopDate(connection, snakeID)));
-                infoTable.addCell(new Paragraph("Letzte Fütterung:"));
-                infoTable.addCell(new Paragraph(getLastMealDate(connection, snakeID)));
 
                 mainTable.addCell(infoTable);
                 document.add(mainTable);
 
-                String graphPath = WeightGraphGenerator.generateWeightGraph(snakeID);
-                if (graphPath != null) {
-                    Image graphImage = new Image(ImageDataFactory.create(graphPath));
+
+                Table mealEntriesTable = createMealEntriesTable(connection, snakeID);
+                document.add(mealEntriesTable.setMarginBottom(20));
+
+                Table poopEntriesTable = createPoopEntriesTable(connection, snakeID);
+                document.add(poopEntriesTable.setMarginBottom(20));
+
+                String weightGraphPath = WeightGraphGenerator.generateWeightGraph(snakeID);
+                if (weightGraphPath != null) {
+                    Image graphImage = new Image(ImageDataFactory.create(weightGraphPath));
                     graphImage.setAutoScale(true);
-                    document.add(graphImage.setMarginTop(20));
+                    document.add(graphImage.setMarginBottom(20));
                 }
 
                 connection.close();
@@ -120,7 +118,6 @@ public class PDFReportGenerator {
             }
         }
     }
-
 
     private static String getTypeNameById(Connection connection, int typeId) throws SQLException {
         String sql = "SELECT Name FROM snaketypes WHERE TypeID = ?";
@@ -148,32 +145,61 @@ public class PDFReportGenerator {
         }
     }
 
-    private static String getLastPoopDate(Connection connection, int snakeID) throws SQLException {
-        String lastPoopSQL = "SELECT Date FROM poopentry WHERE SnakeID = ? ORDER BY Date DESC LIMIT 1";
-        try (PreparedStatement lastPoopStatement = connection.prepareStatement(lastPoopSQL)) {
-            lastPoopStatement.setInt(1, snakeID);
-            ResultSet lastPoopResultSet = lastPoopStatement.executeQuery();
+    private static Table createPoopEntriesTable(Connection connection, int snakeID) throws SQLException {
+        String poopSQL = "SELECT Date, Comment FROM poopentry WHERE SnakeID = ? ORDER BY Date DESC LIMIT 5";
+        try (PreparedStatement poopStatement = connection.prepareStatement(poopSQL)) {
+            poopStatement.setInt(1, snakeID);
+            ResultSet poopResultSet = poopStatement.executeQuery();
 
-            if (lastPoopResultSet.next()) {
-                return lastPoopResultSet.getDate("Date").toString();
-            } else {
-                return "Keine Daten vorhanden.";
+            Table table = new Table(new float[]{1, 2});
+            table.setWidth(UnitValue.createPercentValue(100));
+
+            table.addHeaderCell(new Cell().add(new Paragraph("Datum").setBold()));
+            table.addHeaderCell(new Cell().add(new Paragraph("Kommentar").setBold()));
+
+            while (poopResultSet.next()) {
+                table.addCell(new Cell().add(new Paragraph(poopResultSet.getDate("Date").toString())));
+                table.addCell(new Cell().add(new Paragraph(poopResultSet.getString("Comment"))));
             }
+
+            return table;
         }
     }
 
-    private static String getLastMealDate(Connection connection, int snakeID) throws SQLException {
-        String lastMealSQL = "SELECT Date FROM mealentry WHERE SnakeID = ? ORDER BY Date DESC LIMIT 1";
-        try (PreparedStatement lastMealStatement = connection.prepareStatement(lastMealSQL)) {
-            lastMealStatement.setInt(1, snakeID);
-            ResultSet lastMealResultSet = lastMealStatement.executeQuery();
+    private static Table createMealEntriesTable(Connection connection, int snakeID) throws SQLException {
+        String mealSQL = "SELECT Date, TookFood, FoodType, Weight FROM mealentry WHERE SnakeID = ? ORDER BY Date DESC LIMIT 5";
+        try (PreparedStatement mealStatement = connection.prepareStatement(mealSQL)) {
+            mealStatement.setInt(1, snakeID);
+            ResultSet mealResultSet = mealStatement.executeQuery();
 
-            if (lastMealResultSet.next()) {
-                return lastMealResultSet.getDate("Date").toString();
-            } else {
-                return "Keine Daten vorhanden.";
+            Table table = new Table(new float[]{1, 1, 1, 1});
+            table.setWidth(UnitValue.createPercentValue(100));
+
+            table.addHeaderCell(new Cell().add(new Paragraph("Datum").setBold().setTextAlignment(TextAlignment.CENTER)));
+            table.addHeaderCell(new Cell().add(new Paragraph("Gefressen").setBold().setTextAlignment(TextAlignment.CENTER)));
+            table.addHeaderCell(new Cell().add(new Paragraph("Art der Mahlzeit").setBold().setTextAlignment(TextAlignment.CENTER)));
+            table.addHeaderCell(new Cell().add(new Paragraph("Gewicht(g)").setBold().setTextAlignment(TextAlignment.CENTER)));
+
+            while (mealResultSet.next()) {
+                LocalDate date = mealResultSet.getDate("Date").toLocalDate();
+                boolean tookFood = mealResultSet.getBoolean("TookFood");
+                String foodType = mealResultSet.getString("FoodType");
+                int weight = mealResultSet.getInt("Weight");
+
+                Cell cellDate = new Cell().add(new Paragraph(date.toString()).setTextAlignment(TextAlignment.CENTER));
+                Cell cellTookFood = new Cell().add(new Paragraph(tookFood ? "Ja" : "Nein")).setTextAlignment(TextAlignment.CENTER);
+                Cell cellFoodType = new Cell().add(new Paragraph(foodType)).setTextAlignment(TextAlignment.CENTER);
+                Cell cellWeight = new Cell().add(new Paragraph(String.valueOf(weight))).setTextAlignment(TextAlignment.CENTER);
+
+                table.addCell(cellDate);
+                table.addCell(cellTookFood);
+                table.addCell(cellFoodType);
+                table.addCell(cellWeight);
             }
+
+            return table;
         }
     }
 
 }
+

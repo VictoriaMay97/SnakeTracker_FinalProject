@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import static org.example.snaketracker.PoopItemController.showAlert;
+
 public class WeightItemController {
 
     @FXML
@@ -33,7 +35,7 @@ public class WeightItemController {
     private void loadLastWeightDate() {
         String sql = "SELECT Date FROM weightentry WHERE SnakeID = ? ORDER BY Date DESC LIMIT 1";
 
-        try (Connection connection = new DatabaseConnector().getConnection();
+        try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, snakeID);
@@ -69,7 +71,7 @@ public class WeightItemController {
 
         String sql = "INSERT INTO weightentry (Date, SnakeID, Weight) VALUES (?, ?, ?)";
 
-        try (Connection connection = new DatabaseConnector().getConnection();
+        try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
@@ -86,9 +88,5 @@ public class WeightItemController {
         }
     }
 
-    private void showAlert(String message, AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+
 }

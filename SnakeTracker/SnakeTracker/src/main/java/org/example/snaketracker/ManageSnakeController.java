@@ -19,9 +19,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Objects;
 
+import static org.example.snaketracker.MainMenuController.CSS_PATH;
+
 public class ManageSnakeController {
 
-    private static final String CSS_PATH = "styles.css";
     @FXML
     private VBox snakeListVBox;
     @FXML
@@ -29,13 +30,11 @@ public class ManageSnakeController {
 
     public void initialize() {
         loadSnakes();
-        scrollPane.setFitToWidth(true);
+        
     }
 
     private void loadSnakes() {
-        try {
-            DatabaseConnector databaseConnector = new DatabaseConnector();
-            Connection connection = databaseConnector.getConnection();
+        try (Connection connection = DatabaseConnector.getConnection()) {
             Statement statement = connection.createStatement();
             String query = "SELECT s.SnakeID, s.Name, st.Name AS Type, w.Weight, s.ImagePath " +
                     "FROM snake s " +
@@ -63,7 +62,6 @@ public class ManageSnakeController {
 
             resultSet.close();
             statement.close();
-            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

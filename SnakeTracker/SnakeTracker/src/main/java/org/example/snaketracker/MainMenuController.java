@@ -15,14 +15,15 @@ import java.util.Objects;
 
 public class MainMenuController {
 
-    private static final String CSS_PATH = "styles.css";
+    public static final String CSS_PATH = "styles.css";
+
     @FXML
 
     public void switchToRegisterSnake(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("scenes/RegisterSnake.fxml")));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(CSS_PATH);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }

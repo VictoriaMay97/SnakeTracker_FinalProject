@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: snaketracker
 -- ------------------------------------------------------
--- Server version	8.0.36
+-- Server version	8.0.37
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,32 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `poopentry`
+-- Table structure for table `snaketypes`
 --
 
-DROP TABLE IF EXISTS `poopentry`;
+DROP TABLE IF EXISTS `snaketypes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `poopentry` (
-  `PoopID` int NOT NULL AUTO_INCREMENT,
-  `Date` datetime NOT NULL,
-  `SnakeID` int NOT NULL,
-  `ImagePath` varchar(200) DEFAULT NULL,
-  `Comment` varchar(500) DEFAULT NULL,
-  PRIMARY KEY (`PoopID`),
-  UNIQUE KEY `PoopID_UNIQUE` (`PoopID`),
-  KEY `SnakeID_idx` (`SnakeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `snaketypes` (
+  `TypeID` int NOT NULL,
+  `Name` varchar(45) NOT NULL,
+  PRIMARY KEY (`TypeID`),
+  UNIQUE KEY `TypeID_UNIQUE` (`TypeID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `poopentry`
+-- Dumping data for table `snaketypes`
 --
 
-LOCK TABLES `poopentry` WRITE;
-/*!40000 ALTER TABLE `poopentry` DISABLE KEYS */;
-INSERT INTO `poopentry` VALUES (2,'2024-06-11 00:00:00',32,'\\savedImages\\poop\\poop.png','sieht gut aus');
-/*!40000 ALTER TABLE `poopentry` ENABLE KEYS */;
+LOCK TABLES `snaketypes` WRITE;
+/*!40000 ALTER TABLE `snaketypes` DISABLE KEYS */;
+INSERT INTO `snaketypes` VALUES (1,'Königspython'),(2,'Kornnatter'),(3,'Boa Constrictor'),(4,'Grüner Baumpython'),(5,'Tigerpython');
+/*!40000 ALTER TABLE `snaketypes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-11 21:45:45
+-- Dump completed on 2024-07-09  0:11:47

@@ -8,9 +8,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class SnakeTrackerApplication extends Application {
+import static org.example.snaketracker.MainMenuController.CSS_PATH;
 
-    private static final String CSS_PATH = "styles.css";
+public class SnakeTrackerApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {

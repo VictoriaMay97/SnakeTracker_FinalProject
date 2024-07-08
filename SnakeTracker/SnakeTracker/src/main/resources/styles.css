@@ -1,5 +1,5 @@
 #mainMenuPane {
-    -fx-background-image: url("../../../savedImages/design/hauptmenue.png");
+    -fx-background-image: url("../../../savedImages/design/hauptmenue02.png");
     -fx-background-size: cover;
     -fx-background-position: center center;
 }
@@ -11,7 +11,84 @@
 }
 
 #manageSnakePane {
-                     -fx-background-image: url("../../../savedImages/design/schlange_verwalten.png");
-                     -fx-background-size: cover;
-                     -fx-background-position: center center;
+    -fx-background-image: url("../../../savedImages/design/schlange_verwalten.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
 }
+
+#editSnakePane {
+    -fx-background-image: url("../../../savedImages/design/background_generic_01.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+#snakeItemBox {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #7af0e0, #aacae3);
+
+}
+
+.button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #a6cfe3, #84c3fa);
+
+
+}
+
+.text-field {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #a6cfe3, #84c3fa);
+    -fx-prompt-text-fill: #5f6263;
+
+}
+
+.combo-box {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #a6cfe3, #84c3fa);
+    -fx-font-family: ARIAL;
+
+}
+
+.combo-box .list-cell {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #a6cfe3, #84c3fa);
+    -fx-font-family: ARIAL;
+}
+
+.date-picker {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #a6cfe3, #84c3fa);
+}
+
+.date-picker .text-field {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #a6cfe3, #84c3fa);
+    -fx-font-family: ARIAL;
+}
+
+.date-picker .popup {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #a6cfe3, #84c3fa);
+}
+
+.date-picker .cell {
+  -fx-background-color: #a6cfe3;
+}
+
+.date-picker .cell:hover {
+  -fx-background-color: #4da1eb;
+}
+
+.date-picker .cell:focused {
+  -fx-background-color: #4da1eb;
+}
+
+.date-picker .arrow-button {
+  -fx-background-color: #4da1eb;
+  -fx-background-radius: 0;
+}
+
+.date-picker .arrow-button .arrow {
+  -fx-background-color: #84c3fa;
+}
+
+.date-picker-popup .month-year-pane .label {
+  -fx-text-fill: black;
+}
+
+.date-picker-popup .month-year-pane {
+  -fx-background-color: #4da1eb;
+}
+

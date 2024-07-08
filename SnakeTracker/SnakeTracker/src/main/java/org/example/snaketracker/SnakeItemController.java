@@ -18,6 +18,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import static org.example.snaketracker.EditSnakeController.defaultSnakeImagePath;
+import static org.example.snaketracker.EditSnakeController.getImagePath;
+import static org.example.snaketracker.MainMenuController.CSS_PATH;
+
 public class SnakeItemController {
 
     @FXML
@@ -39,7 +43,16 @@ public class SnakeItemController {
         typeLabel.setText("Art: " + type);
         weightLabel.setText("Gewicht: " + weight + " kg");
         if (imagePath != null && !imagePath.isEmpty()) {
-            imageView.setImage(new Image(getImagePath(imagePath)));
+            try {
+                imageView.setImage(new Image(getImagePath(imagePath)));
+
+            } catch (Exception e) {
+                try {
+                    imageView.setImage(new Image(getImagePath(defaultSnakeImagePath)));
+
+                } catch (Exception e2) {
+                }
+            }
         }
         chooseButton.setOnAction(event -> {
             try {
@@ -59,8 +72,10 @@ public class SnakeItemController {
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
+        root.getStylesheets().add(CSS_PATH);
         stage.show();
     }
+
     @FXML
     private void deleteSnake(javafx.event.ActionEvent event) {
         deleteSnakeFromDatabase(snakeID);
@@ -70,7 +85,7 @@ public class SnakeItemController {
 
     private void deleteSnakeFromDatabase(int snakeID) {
         String sql = "DELETE FROM snake WHERE SnakeID = ?";
-        try (Connection conn = new DatabaseConnector().getConnection();
+        try (Connection conn = DatabaseConnector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, snakeID);
             pstmt.executeUpdate();
@@ -78,13 +93,6 @@ public class SnakeItemController {
             System.out.println(e.getMessage());
         }
     }
-
-    private String getImagePath(String imagePath){
-        String filePath = new File("").getAbsolutePath();
-        return filePath.concat(imagePath);
-
-    }
-
 }
 
 

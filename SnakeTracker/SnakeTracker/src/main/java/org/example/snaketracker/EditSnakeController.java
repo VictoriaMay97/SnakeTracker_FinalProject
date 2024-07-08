@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -13,6 +15,7 @@ import javafx.stage.Stage;
 import org.example.snaketracker.database.DatabaseConnector;
 import org.example.snaketracker.logic.PDFReportGenerator;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,9 +25,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
+import static org.example.snaketracker.MainMenuController.CSS_PATH;
+import static org.example.snaketracker.PoopItemController.showAlert;
 
 public class EditSnakeController {
-    private static final String CSS_PATH = "styles.css";
+
     @FXML
     private ImageView imageView;
     @FXML
@@ -46,6 +53,7 @@ public class EditSnakeController {
     @FXML
     private Button createPDFButton;
 
+    public final static String defaultSnakeImagePath = "/savedImages/default/default_schlange.jpg";
     private int snakeID;
     private String imagePath;
     private final Map<String, Integer> snakeTypeMap = new HashMap<>();
@@ -56,9 +64,8 @@ public class EditSnakeController {
 
     public void loadSnakeData(int snakeID) {
         this.snakeID = snakeID;
-        try {
-            DatabaseConnector databaseConnector = new DatabaseConnector();
-            Connection connection = databaseConnector.getConnection();
+        try (Connection connection = DatabaseConnector.getConnection()) {
+
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM snake WHERE SnakeID = " + snakeID);
 
@@ -71,11 +78,19 @@ public class EditSnakeController {
                 imagePath = resultSet.getString("ImagePath");
 
                 if (imagePath != null && !imagePath.isEmpty()) {
-                   String fullImagePath = getImagePath(imagePath);
-                    imageView.setImage(new Image(new FileInputStream(fullImagePath)));
+                    String fullImagePath = getImagePath(imagePath);
+                    String fullDefaultSnakePath = getImagePath(defaultSnakeImagePath);
+                    try {
+                        imageView.setImage(new Image(new FileInputStream(fullImagePath)));
+
+                    } catch (Exception e) {
+                        try {
+                            imageView.setImage(new Image(new FileInputStream(fullDefaultSnakePath)));
+
+                        } catch (Exception e2) {
+                        }
+                    }
                 }
-
-
             }
 
             loadWeightItems();
@@ -88,11 +103,8 @@ public class EditSnakeController {
     }
 
 
-
     private void loadTypeComboBoxData() {
-        try {
-            DatabaseConnector databaseConnector = new DatabaseConnector();
-            Connection connection = databaseConnector.getConnection();
+        try (Connection connection = DatabaseConnector.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT TypeID, Name FROM snaketypes");
 
@@ -105,10 +117,10 @@ public class EditSnakeController {
 
             resultSet.close();
             statement.close();
-            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     private String getTypeNameById(int typeId) {
@@ -178,7 +190,7 @@ public class EditSnakeController {
     @FXML
     private void goBack() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("scenes/ManageSnake.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("scenes/ManageSnake.fxml")));
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             root.getStylesheets().add(CSS_PATH);
@@ -190,9 +202,7 @@ public class EditSnakeController {
 
     @FXML
     private void submit() {
-        try {
-            DatabaseConnector databaseConnector = new DatabaseConnector();
-            Connection connection = databaseConnector.getConnection();
+        try (Connection connection = DatabaseConnector.getConnection()) {
             String updateSQL = "UPDATE snake SET Name = ?, Type = ?, Birthdate = ?, Morph = ?, ImagePath = ? WHERE SnakeID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(updateSQL);
             preparedStatement.setString(1, nameField.getText());
@@ -212,11 +222,31 @@ public class EditSnakeController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void openDefaultMailApp() {
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            if (desktop.isSupported(Desktop.Action.MAIL)) {
+                try {
+                    desktop.mail();
+                } catch (IOException | UnsupportedOperationException | SecurityException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                showAlert("Mail-Funktion wird nicht unterstützt!", Alert.AlertType.ERROR);
+            }
+        } else {
+            showAlert("Desktop wird nicht unterstützt!", Alert.AlertType.ERROR);
+        }
+    }
+
     @FXML
     private void createPDF() {
         PDFReportGenerator.generatePdfReport((Stage) createPDFButton.getScene().getWindow(), snakeID);
     }
-    private String getImagePath(String imagePath){
+
+    public static String getImagePath(String imagePath) {
         String filePath = new File("").getAbsolutePath();
         return filePath.concat(imagePath);
     }

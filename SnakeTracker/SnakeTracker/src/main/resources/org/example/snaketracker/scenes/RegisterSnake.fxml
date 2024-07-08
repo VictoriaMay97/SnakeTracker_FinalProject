@@ -6,18 +6,45 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="registerSnakePane" prefHeight="791.0" prefWidth="496.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.snaketracker.RegisterSnakeController">
-   <children>
-      <ComboBox fx:id="snakeTypeComboBox" layoutX="39.0" layoutY="250.0" onContextMenuRequested="#initialize" prefHeight="25.0" prefWidth="149.0" promptText="Schlangenart" />
-      <TextField fx:id="snakeName" layoutX="308.0" layoutY="250.0" promptText="Name" />
-      <ComboBox fx:id="chooseSexBox" layoutX="39.0" layoutY="328.0" prefHeight="25.0" prefWidth="149.0" promptText="Geschlecht" />
-      <DatePicker fx:id="chooseBirthdateBox" layoutX="308.0" layoutY="328.0" prefHeight="25.0" prefWidth="149.0" promptText="Geburtsdatum" />
-      <TextField fx:id="morphBox" layoutX="39.0" layoutY="416.0" promptText="Morphe" />
-      <TextField fx:id="weightBox" layoutX="308.0" layoutY="416.0" promptText="Gewicht in kg" />
-      <Button fx:id="uploadPictureButton" layoutX="39.0" layoutY="496.0" mnemonicParsing="false" onAction="#uploadImage" prefHeight="25.0" prefWidth="149.0" text="Bild hochladen" />
-      <Button fx:id="backButtonRegisterSnake" layoutX="31.0" layoutY="734.0" mnemonicParsing="false" onAction="#switchToMainMenu" text="Zurück" />
-      <Button fx:id="submitDataButton" layoutX="412.0" layoutY="734.0" mnemonicParsing="false" onAction="#submitData" onContextMenuRequested="#submitData" text="anlegen" />
-      <ImageView fx:id="snakeImage" fitHeight="150.0" fitWidth="200.0" layoutX="257.0" layoutY="496.0" pickOnBounds="true" preserveRatio="true" />
-   </children>
+<AnchorPane fx:id="registerSnakePane" prefHeight="791.0" prefWidth="496.0" styleClass="anchor-pane"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.snaketracker.RegisterSnakeController">
+    <children>
+        <ComboBox fx:id="snakeTypeComboBox" layoutX="39.0" layoutY="250.0" onContextMenuRequested="#initialize"
+                  prefHeight="25.0" prefWidth="149.0" promptText="Schlangenart" stylesheets="@../../../../styles.css"/>
+
+        <TextField fx:id="snakeName" layoutX="308.0" layoutY="250.0" promptText="Name"
+                   stylesheets="@../../../../styles.css">
+            <font>
+                <Font name="Arial" size="12.0"/>
+            </font>
+        </TextField>
+        <ComboBox fx:id="chooseSexBox" layoutX="39.0" layoutY="328.0" prefHeight="25.0" prefWidth="149.0"
+                  promptText="Geschlecht" stylesheets="@../../../../styles.css"/>
+        <DatePicker fx:id="chooseBirthdateBox" layoutX="308.0" layoutY="328.0" prefHeight="25.0" prefWidth="149.0"
+                    promptText="Geburtsdatum" stylesheets="@../../../../styles.css"/>
+        <TextField fx:id="morphBox" layoutX="39.0" layoutY="416.0" promptText="Morphe"
+                   stylesheets="@../../../../styles.css">
+            <font>
+                <Font name="Arial" size="12.0"/>
+            </font>
+        </TextField>
+        <TextField fx:id="weightBox" layoutX="308.0" layoutY="416.0" promptText="Gewicht in kg"
+                   stylesheets="@../../../../styles.css">
+            <font>
+                <Font name="Arial" size="12.0"/>
+            </font>
+        </TextField>
+        <Button fx:id="uploadPictureButton" layoutX="39.0" layoutY="496.0" mnemonicParsing="false"
+                onAction="#uploadImage" prefHeight="25.0" prefWidth="149.0" stylesheets="@../../../../styles.css"
+                text="Bild hochladen"/>
+        <Button fx:id="backButtonRegisterSnake" layoutX="31.0" layoutY="734.0" mnemonicParsing="false"
+                onAction="#switchToMainMenu" stylesheets="@../../../../styles.css" text="Zurück"/>
+        <Button fx:id="submitDataButton" layoutX="412.0" layoutY="734.0" mnemonicParsing="false" onAction="#submitData"
+                onContextMenuRequested="#submitData" stylesheets="@../../../../styles.css" text="anlegen"/>
+        <ImageView fx:id="snakeImage" fitHeight="150.0" fitWidth="200.0" layoutX="257.0" layoutY="496.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+    </children>
 </AnchorPane>

@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: snaketracker
 -- ------------------------------------------------------
--- Server version	8.0.36
+-- Server version	8.0.37
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,21 +28,12 @@ CREATE TABLE `snake` (
   `Name` varchar(30) DEFAULT NULL,
   `Sex` tinyint NOT NULL,
   `BirthDate` datetime NOT NULL,
-  `LastWeightID` int DEFAULT NULL,
-  `LastMealID` int DEFAULT NULL,
-  `LastPoopID` int DEFAULT NULL,
   `Morph` varchar(45) DEFAULT NULL,
   `ImagePath` varchar(350) DEFAULT NULL,
   PRIMARY KEY (`SnakeID`),
-  KEY `MealID_idx` (`LastMealID`),
-  KEY `PoopID_idx` (`LastPoopID`),
-  KEY `WeightID_idx` (`LastWeightID`),
   KEY `TypeID_idx` (`Type`),
-  CONSTRAINT `MealID` FOREIGN KEY (`LastMealID`) REFERENCES `mealentry` (`MealID`),
-  CONSTRAINT `PoopID` FOREIGN KEY (`LastPoopID`) REFERENCES `poopentry` (`PoopID`),
-  CONSTRAINT `TypeID` FOREIGN KEY (`Type`) REFERENCES `snaketypes` (`TypeID`),
-  CONSTRAINT `WeightID` FOREIGN KEY (`LastWeightID`) REFERENCES `weightentry` (`WeightID`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `TypeID` FOREIGN KEY (`Type`) REFERENCES `snaketypes` (`TypeID`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +42,7 @@ CREATE TABLE `snake` (
 
 LOCK TABLES `snake` WRITE;
 /*!40000 ALTER TABLE `snake` DISABLE KEYS */;
-INSERT INTO `snake` VALUES (30,3,'Gustav',1,'2023-12-13 00:00:00',20,3,NULL,'Albino Motley','/savedImages/snakes/boa_albino_motley_labyrinth.jpeg'),(32,1,'Bubu',0,'2024-03-01 00:00:00',22,4,2,'Candy Pied','/savedImages/snakes/ball_candypied.jpeg'),(34,4,'Baumi',1,'2023-11-02 00:00:00',24,2,NULL,'Biak','/savedImages/snakes/baum_biak.jpeg'),(35,5,'Longboi',0,'2020-04-20 00:00:00',25,5,NULL,'Pied','/savedImages/snakes/tiger_pied.jpeg'),(36,2,'Glubschi',1,'2024-03-23 00:00:00',26,6,NULL,'Palmetto','/savedImages/snakes/korn_palmetto.jpeg');
+INSERT INTO `snake` VALUES (30,3,'Gustav',1,'2023-12-13 00:00:00','Albino Motley','/savedImages/snakes/boa_albino_motley_labyrinth.jpeg'),(32,1,'Bubu',0,'2024-03-01 00:00:00','Candy Pied','/savedImages/snakes/ball_candypied.jpeg'),(34,4,'Baumi',1,'2023-11-02 00:00:00','Biak','/savedImages/snakes/baum_biak.jpeg'),(35,5,'Longboi',0,'2020-04-20 00:00:00','Pied','/savedImages/snakes/tiger_pied.jpeg'),(36,2,'Glubschi',1,'2024-03-23 00:00:00','Palmetto','/savedImages/snakes/korn_palmetto.jpeg');
 /*!40000 ALTER TABLE `snake` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -64,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-11 21:45:45
+-- Dump completed on 2024-07-09  0:11:49

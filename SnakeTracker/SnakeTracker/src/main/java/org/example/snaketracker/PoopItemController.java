@@ -22,6 +22,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import static org.example.snaketracker.EditSnakeController.getImagePath;
+
 public class PoopItemController {
 
     @FXML
@@ -31,20 +33,27 @@ public class PoopItemController {
     @FXML
     private ImageView imageView;
 
+    public static final String defaultPoopImagePath = "/savedImages/default/default_poop.jpg";
     private int snakeID;
     private String imagePath;
-    public void initialize(){
+
+
+    public void initialize() {
     }
 
     public void setSnakeID(int snakeID) {
         this.snakeID = snakeID;
         loadLastPoopDate();
+        try {
+            imageView.setImage(new Image(getImagePath(defaultPoopImagePath)));
+        } catch (Exception e) {
+        }
     }
 
     private void loadLastPoopDate() {
         String sql = "SELECT Date FROM poopentry WHERE SnakeID = ? ORDER BY Date DESC LIMIT 1";
 
-        try (Connection connection = new DatabaseConnector().getConnection();
+        try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, snakeID);
@@ -98,7 +107,7 @@ public class PoopItemController {
 
         String sql = "INSERT INTO poopentry (Date, SnakeID, ImagePath, Comment) VALUES (?, ?, ?, ?)";
 
-        try (Connection connection = new DatabaseConnector().getConnection();
+        try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
@@ -116,15 +125,9 @@ public class PoopItemController {
         }
     }
 
-    private void showAlert(String message, AlertType alertType) {
+    public static void showAlert(String message, AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setContentText(message);
         alert.showAndWait();
     }
-  /*  private String getImagePath(String imagePath){
-        String filePath = new File("").getAbsolutePath();
-        System.out.println(filePath.concat(imagePath));
-        return filePath.concat(imagePath);
-
-    }*/
 }

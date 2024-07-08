@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: snaketracker
 -- ------------------------------------------------------
--- Server version	8.0.36
+-- Server version	8.0.37
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -31,7 +31,7 @@ CREATE TABLE `mealentry` (
   `Weight` int DEFAULT NULL,
   PRIMARY KEY (`MealID`),
   UNIQUE KEY `MealID_UNIQUE` (`MealID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `mealentry` (
 
 LOCK TABLES `mealentry` WRITE;
 /*!40000 ALTER TABLE `mealentry` DISABLE KEYS */;
-INSERT INTO `mealentry` VALUES (2,'2024-06-11 00:00:00',34,1,'Maus',60),(3,'2024-06-11 00:00:00',30,1,'Ratte',110),(4,'2024-06-11 00:00:00',32,1,'Maus',40),(5,'2024-06-11 00:00:00',35,1,'Hase',1000),(6,'2024-06-11 00:00:00',36,1,'Maus',10);
+INSERT INTO `mealentry` VALUES (2,'2024-06-11 00:00:00',34,1,'Maus',60),(3,'2024-06-11 00:00:00',30,1,'Ratte',110),(4,'2024-06-11 00:00:00',32,1,'Maus',40),(5,'2024-06-11 00:00:00',35,1,'Hase',1000),(6,'2024-06-11 00:00:00',36,1,'Maus',10),(7,'2024-05-20 00:00:00',32,1,'Maus',40),(8,'2024-05-08 00:00:00',32,0,'Maus',35),(9,'2024-04-24 00:00:00',32,1,'Maus',30),(10,'2024-04-16 00:00:00',32,0,'Maus',20),(11,'2024-05-20 00:00:00',34,1,'Maus',55),(12,'2024-05-08 00:00:00',34,1,'Maus',60),(13,'2024-04-24 00:00:00',34,0,'Maus',50),(14,'2024-04-16 00:00:00',34,1,'Ratte',80),(15,'2024-05-20 00:00:00',30,0,'Ratte',100),(16,'2024-05-08 00:00:00',30,0,'Ratte',90),(17,'2024-04-24 00:00:00',30,1,'Ratte',120),(18,'2024-04-16 00:00:00',30,1,'Ratte',110),(19,'2024-05-20 00:00:00',35,0,'Hase',1200),(20,'2024-05-08 00:00:00',35,1,'Hase',900),(21,'2024-04-24 00:00:00',35,1,'Ratte',200),(22,'2024-04-16 00:00:00',35,1,'Hase',1050),(23,'2024-05-20 00:00:00',36,0,'Maus',10),(24,'2024-05-08 00:00:00',36,1,'Maus',10),(25,'2024-04-24 00:00:00',36,1,'Maus',10),(26,'2024-04-16 00:00:00',36,1,'Maus',10);
 /*!40000 ALTER TABLE `mealentry` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-11 21:45:45
+-- Dump completed on 2024-07-09  0:11:40

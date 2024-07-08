@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class DatabaseConnector {
     public static Connection databaseLink;
 
-    public Connection getConnection(){
+    public static Connection getConnection(){
         final String databaseUser = "root";
         final String databasePassword = "Password";
         final String url = "jdbc:mysql://localhost:3306/snaketracker";

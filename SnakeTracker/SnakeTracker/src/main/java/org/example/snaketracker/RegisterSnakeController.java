@@ -30,9 +30,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class RegisterSnakeController {
+import static org.example.snaketracker.MainMenuController.CSS_PATH;
 
-    private static final String CSS_PATH = "styles.css";
+public class RegisterSnakeController {
 
     @FXML
     private ComboBox<String> snakeTypeComboBox;
@@ -58,9 +58,7 @@ public class RegisterSnakeController {
     }
 
     private void loadTypeComboBoxData() {
-        try {
-            DatabaseConnector databaseConnector = new DatabaseConnector();
-            Connection connection = databaseConnector.getConnection();
+        try (Connection connection = DatabaseConnector.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT TypeID, Name FROM snaketypes");
 
@@ -73,7 +71,6 @@ public class RegisterSnakeController {
 
             resultSet.close();
             statement.close();
-            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,12 +93,13 @@ public class RegisterSnakeController {
             int sex = "männlich".equals(snakeSexInput) ? 1 : 0;
             double weight = Double.parseDouble(weightInput);
             insertDataIntoDatabase(snakeNameInput, snakeTypeInput, sex, snakeBirthdateInput, snakeMorphInput, imagePath, weight);
-            showAlert("Erfolg!","Schlange angelegt.", Alert.AlertType.INFORMATION);
+            showAlert("Erfolg!", "Schlange angelegt.", Alert.AlertType.INFORMATION);
 
         } else {
             showAlert("Eingabefehler", "Bitte alle Felder korrekt ausfüllen.", Alert.AlertType.ERROR);
         }
     }
+
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -109,6 +107,7 @@ public class RegisterSnakeController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     private boolean isInputValid(String name, String type, String sex, LocalDate birthdate, String morph, String weight) {
         return name != null && !name.isEmpty() &&
                 type != null && !type.isEmpty() &&
@@ -123,9 +122,7 @@ public class RegisterSnakeController {
         String snakeSql = "INSERT INTO snake (Name, Type, Sex, Birthdate, Morph, ImagePath) VALUES (?, ?, ?, ?, ?, ?)";
         String weightSql = "INSERT INTO weightentry (Date, SnakeID, Weight) VALUES (?, ?, ?)";
 
-        try {
-            DatabaseConnector databaseConnector = new DatabaseConnector();
-            Connection connection = databaseConnector.getConnection();
+        try (Connection connection = DatabaseConnector.getConnection()) {
             connection.setAutoCommit(false);
 
             PreparedStatement snakeStmt = connection.prepareStatement(snakeSql, Statement.RETURN_GENERATED_KEYS);
@@ -152,7 +149,6 @@ public class RegisterSnakeController {
 
             snakeStmt.close();
             connection.commit();
-            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -199,11 +195,4 @@ public class RegisterSnakeController {
         stage.setScene(scene);
         stage.show();
     }
-
-    private String getImagePath(String imagePath){
-        String filePath = new File("").getAbsolutePath();
-        return filePath.concat(imagePath);
-
-    }
-
 }

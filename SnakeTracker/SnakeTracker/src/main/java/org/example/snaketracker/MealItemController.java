@@ -40,7 +40,7 @@ public class MealItemController {
     private void loadLastMealDate() {
         String sql = "SELECT Date FROM mealentry WHERE SnakeID = ? ORDER BY Date DESC LIMIT 1";
 
-        try (Connection connection = new DatabaseConnector().getConnection();
+        try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, snakeID);
@@ -81,7 +81,7 @@ public class MealItemController {
 
         String sql = "INSERT INTO mealentry (Date, SnakeID, TookFood, FoodType, Weight) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection connection = new DatabaseConnector().getConnection();
+        try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setDate(1, java.sql.Date.valueOf(LocalDate.now()));

@@ -6,22 +6,46 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox prefHeight="100.0" prefWidth="432.0" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.snaketracker.SnakeItemController">
-   <VBox fillWidth="false" prefHeight="100.0" prefWidth="15.0">
-      <children>
-          <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="112.0" />
-      </children>
-   </VBox>
-    <VBox prefHeight="100.0" prefWidth="265.0" spacing="5" translateY="5.5">
-        <Label fx:id="nameLabel" text="Name:" />
-        <Label fx:id="typeLabel" text="Art:" />
-        <Label fx:id="weightLabel" text="Gewicht:" />
+<HBox fx:id="snakeItemBox" prefHeight="100.0" prefWidth="406.0" spacing="10" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.snaketracker.SnakeItemController">
+    <VBox fillWidth="false" prefHeight="100.0" prefWidth="15.0">
+        <children>
+            <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="112.0"/>
+        </children>
     </VBox>
-   <Pane prefHeight="200.0" prefWidth="200.0">
-      <children>
-           <Button fx:id="deleteButton" layoutX="11.0" layoutY="70.0" mnemonicParsing="false" onAction="#deleteSnake" prefHeight="0.0" prefWidth="97.0" text="Löschen" />
-         <Button fx:id="chooseButton" layoutX="-100.0" layoutY="70.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="97.0" text="Auswählen" />
-      </children>
-   </Pane>
+    <VBox prefHeight="100.0" prefWidth="265.0" spacing="5" translateY="5.5">
+        <Label fx:id="nameLabel" text="Name:">
+            <font>
+                <Font name="Arial Bold" size="12.0"/>
+            </font>
+        </Label>
+        <Label fx:id="typeLabel" text="Art:">
+            <font>
+                <Font name="Arial Bold" size="12.0"/>
+            </font>
+        </Label>
+        <Label fx:id="weightLabel" text="Gewicht:">
+            <font>
+                <Font name="Arial Bold" size="12.0"/>
+            </font>
+        </Label>
+    </VBox>
+    <Pane prefHeight="200.0" prefWidth="200.0">
+        <children>
+            <Button fx:id="deleteButton" layoutX="-4.0" layoutY="70.0" mnemonicParsing="false" onAction="#deleteSnake"
+                    prefHeight="0.0" prefWidth="97.0" text="Löschen">
+                <font>
+                    <Font name="Arial Bold" size="12.0"/>
+                </font>
+            </Button>
+            <Button fx:id="chooseButton" layoutX="-115.0" layoutY="70.0" mnemonicParsing="false" prefHeight="0.0"
+                    prefWidth="97.0" text="Auswählen">
+                <font>
+                    <Font name="Arial Bold" size="12.0"/>
+                </font>
+            </Button>
+        </children>
+    </Pane>
 </HBox>
